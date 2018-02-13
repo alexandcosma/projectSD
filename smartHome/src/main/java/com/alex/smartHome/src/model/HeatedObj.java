@@ -1,8 +1,8 @@
 package com.alex.smartHome.src.model;
 
+import com.alex.smartHome.src.data.Logger;
 import com.alex.smartHome.src.physicalEq.Relay;
 import com.alex.smartHome.src.physicalEq.Sensor;
-import data.Logger;
 
 import java.util.Date;
 
@@ -24,6 +24,16 @@ public abstract class HeatedObj {
 		sensor=new Sensor(sensPinNumber);
 		rl=new Relay(rlPinNumber);
 	}
+
+	public HeatedObj(String n, int sensPinNumber,int rlPinNumber, float reqTemp)
+	{
+		name=n;
+		actTemp=0;
+		this.reqTemp=reqTemp;
+		sensor=new Sensor(sensPinNumber);
+		rl=new Relay(rlPinNumber);
+	}
+	public HeatedObj(){};
 
 	public boolean equals(Object hpl){
 		return ((HeatedObj)hpl).name.equals(this.name) && ((HeatedObj)hpl).sensor.equals(this.sensor) && ((HeatedObj)hpl).rl.equals(this.rl);
