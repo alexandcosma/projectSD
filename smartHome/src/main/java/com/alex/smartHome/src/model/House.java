@@ -1,6 +1,5 @@
 package com.alex.smartHome.src.model;
 
-import com.alex.smartHome.src.communication.AppServer;
 import com.alex.smartHome.src.physicalEq.Relay;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ public class House {
     public AdminUser administrator;
     public Relay protect;
     public ProcessingBox processingBox;
-    public AppServer appServer;
 
     public House(List<HeatedObj> heatedObjList, HeatingObj heatingObj, List<RegularUser> usersList, AdminUser admin, Relay protect) {
         heatedPlaces = heatedObjList;
@@ -28,8 +26,7 @@ public class House {
         processingBox = new ProcessingBox(this);
     }
 
-    public House(AppServer as, List<HeatedObj> heatedObjList, HeatingObj heatingObj, Relay protect) {
-        appServer = as;
+    public House(List<HeatedObj> heatedObjList, HeatingObj heatingObj, Relay protect) {
         heatedPlaces = heatedObjList;
         heatingSource = heatingObj;
         this.usersList = new ArrayList<>();
@@ -43,8 +40,7 @@ public class House {
         administrator.setHouse(this);
     }
 
-    public House(AdminUser admin, AppServer as){
-        appServer = as;
+    public House(AdminUser admin){
         heatedPlaces = new ArrayList<HeatedObj>();
         usersList = new ArrayList<RegularUser>();
         administrator = admin;
@@ -117,7 +113,7 @@ public class House {
         if(!heatedPlaces.get(index).getStatus())
         {
             Boolean b = heatedPlaces.get(index).turnOnHeating();
-            appServer.updateDataClients();
+//            SmartHomeApplication.updateDataClients();
             return b;
         }
         return true;
@@ -132,13 +128,13 @@ public class House {
         if(ok)
             if(protect.getState()&&!heatingSource.getStatus()) {
                 Boolean b = heatedPlaces.get(index).turnOffHeating();
-                appServer.updateDataClients();
+//                SmartHomeApplication.updateDataClients();
                 return b;
             }
             else
                 return false;
         ok = heatedPlaces.get(index).turnOffHeating();
-        appServer.updateDataClients();
+//        SmartHomeApplication.updateDataClients();
         return ok;
     }
 
@@ -216,7 +212,7 @@ public class House {
         heatedPlaces.get(index).setActTmp(t);
     }
 
-    public void updateUsers() {
-        appServer.updateDataClients();
-    }
+//    public void updateUsers() {
+//        SmartHomeApplication.updateDataClients();
+//    }
 }

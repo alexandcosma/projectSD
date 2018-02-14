@@ -68,6 +68,6 @@ public class DataBase {
     public void addProtection(Relay rel) {
         RelaysDAO rg = new RelaysDAO(new Configuration().configure().buildSessionFactory());
         rg.deleteProtection();
-        rg.insert(rel.getPin(), true);
+        rg.insert(rel.getPinNr(), true);
     }
 }

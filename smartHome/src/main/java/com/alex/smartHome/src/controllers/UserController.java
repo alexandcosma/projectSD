@@ -5,10 +5,10 @@ import model.RegularUser;
 /**
  * Created by cosma on 10.05.2017.
  */
-public class UserViewController {
+public class UserController {
     private RegularUser user;
 
-    public UserViewController(RegularUser usr){
+    public UserController(RegularUser usr){
         user = usr;
     }
 

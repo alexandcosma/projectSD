@@ -1,6 +1,6 @@
 package com.alex.smartHome.src.communication;
 
-import model.House;
+import com.alex.smartHome.src.model.House;
 
 import java.io.Serializable;
 import java.util.ArrayList;
