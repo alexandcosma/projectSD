@@ -1,7 +1,7 @@
 package com.alex.smartHome.src.data;
 
+import com.alex.smartHome.src.model.Boiler;
 import com.alex.smartHome.src.model.HeatedObj;
-import com.alex.smartHome.src.model.Room;
 import org.hibernate.*;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.List;
 /**
  * Created by cosma on 16.05.2017.
  */
-public class RoomsDAO {
+public class BoilersDAO {
     private SessionFactory factory;
 
-    public RoomsDAO(SessionFactory factory) {
+    public BoilersDAO(SessionFactory factory) {
         this.factory = factory;
     }
 
@@ -23,11 +23,11 @@ public class RoomsDAO {
         List<HeatedObj> heatedObjects = null;
         HeatedObj heatedObj = null;
         try {
-            Query query = session.createQuery("FROM rooms WHERE name = :name");
+            Query query = session.createQuery("FROM boilers WHERE name = :name");
             query.setParameter("name", name);
             heatedObjects = query.list();
 
-            heatedObj = new Room(heatedObjects.get(0));
+            heatedObj = new Boiler(heatedObjects.get(0));
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -42,11 +42,11 @@ public class RoomsDAO {
         Session session = factory.openSession();
 
         try {
-            Query query = session.createQuery("FROM rooms");
+            Query query = session.createQuery("FROM boilers");
             heatedObjects = query.list();
 
             for (int i = 0; i < heatedObjects.size(); i++) {
-                heatedObjectsFinal.add(new Room(heatedObjects.get(i)));
+                heatedObjectsFinal.add(new Boiler(heatedObjects.get(i)));
             }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
@@ -57,12 +57,12 @@ public class RoomsDAO {
         return heatedObjectsFinal;
     }
 
-    public void insert(HeatedObj room) {
+    public void insert(HeatedObj boiler) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(room);
+            session.save(boiler);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -93,9 +93,9 @@ public class RoomsDAO {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            HeatedObj room = find(name);
-            room.setReqTemp(newTemp);
-            session.update(room);
+            HeatedObj boiler = find(name);
+            boiler.setReqTemp(newTemp);
+            session.update(boiler);
             tx.commit();
         } catch (Exception e) {
             if (tx != null) tx.rollback();

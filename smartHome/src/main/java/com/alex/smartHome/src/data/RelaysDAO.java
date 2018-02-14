@@ -1,68 +1,58 @@
 package com.alex.smartHome.src.data;
 
-import com.alex.smartHome.src.model.HeatedObj;
-import com.alex.smartHome.src.model.Room;
+import com.alex.smartHome.src.physicalEq.Relay;
 import org.hibernate.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cosma on 16.05.2017.
  */
-public class RoomsDAO {
+public class RelaysDAO {
     private SessionFactory factory;
 
-    public RoomsDAO(SessionFactory factory) {
+    public RelaysDAO(SessionFactory factory) {
         this.factory = factory;
     }
 
-    public HeatedObj find(String name) {
+    public Relay find(int pin) {
+        Relay relay = null;
         Session session = factory.openSession();
         Transaction tx = null;
-        List<HeatedObj> heatedObjects = null;
-        HeatedObj heatedObj = null;
         try {
-            Query query = session.createQuery("FROM rooms WHERE name = :name");
-            query.setParameter("name", name);
-            heatedObjects = query.list();
-
-            heatedObj = new Room(heatedObjects.get(0));
+            Query query = session.createQuery("FROM relays WHERE pinId = :pinId");
+            query.setParameter("pinId", pin);
+            relay = (Relay) query.list().get(0);
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
-        return heatedObj;
+        return relay;
     }
 
-    public List<HeatedObj> findAll() {
-        List<HeatedObj> heatedObjectsFinal = new ArrayList<>();
-        List<HeatedObj> heatedObjects;
+    public Relay findProtection() {
+        Relay relay = null;
         Session session = factory.openSession();
-
+        Transaction tx = null;
         try {
-            Query query = session.createQuery("FROM rooms");
-            heatedObjects = query.list();
-
-            for (int i = 0; i < heatedObjects.size(); i++) {
-                heatedObjectsFinal.add(new Room(heatedObjects.get(i)));
-            }
+            Query query = session.createQuery("FROM relays WHERE protection = 1");
+            relay = (Relay) query.list().get(0);
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
         }
-
-        return heatedObjectsFinal;
+        return relay;
     }
 
-    public void insert(HeatedObj room) {
+    public void insert(int relay, boolean protection) {
         Session session = factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(room);
+            Query query = session.createQuery("INSERT into relays VALUES (:pin , :protection)");
+            query.setParameter("pin", relay);
+            query.setParameter("protection", protection ? 1 : 0);
+            query.executeUpdate();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -72,13 +62,13 @@ public class RoomsDAO {
         }
     }
 
-    public void delete(String name) {
+    public void delete(int pin) {
         Session session = factory.openSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            session.delete(find(name));
+            session.delete(find(pin));
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -88,16 +78,16 @@ public class RoomsDAO {
         }
     }
 
-    public void modifyTemp(String name, float newTemp) {
+    public void deleteProtection() {
         Session session = factory.openSession();
         Transaction tx = null;
+
         try {
             tx = session.beginTransaction();
-            HeatedObj room = find(name);
-            room.setReqTemp(newTemp);
-            session.update(room);
+            Query query = session.createQuery("DELETE FROM relays WHERE protection = 1");
+            query.executeUpdate();
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();
         } finally {

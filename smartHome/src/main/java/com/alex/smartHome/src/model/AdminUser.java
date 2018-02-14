@@ -10,16 +10,16 @@ import com.alex.smartHome.src.physicalEq.Relay;
  */
 public class AdminUser extends User {
 
-    public AdminUser(int id, String password, House house){
+    public AdminUser(int id, String password, House house) {
         super(id, password, house);
     }
 
-    public AdminUser(int id, String password){
+    public AdminUser(int id, String password) {
         super(id, password);
     }
 
-    public boolean addHeatingSource(String name, int pinId){
-        if(house.heatingSource != null)
+    public boolean addHeatingSource(String name, int pinId) {
+        if (house.heatingSource != null)
             return false;
         else {
             house.heatingSource = new HeatingObj(name, pinId);
@@ -28,8 +28,8 @@ public class AdminUser extends User {
         return true;
     }
 
-    public boolean addProtection(int pinId){
-        if(house.protect != null)
+    public boolean addProtection(int pinId) {
+        if (house.protect != null)
             return false;
         else {
             house.protect = new Relay(pinId);
@@ -38,63 +38,63 @@ public class AdminUser extends User {
         return true;
     }
 
-    public void changeHeatingSource(String name, int pinId){
+    public void changeHeatingSource(String name, int pinId) {
         house.heatingSource = new HeatingObj(name, pinId);
         new DataBase().modifyHeatingSource(house.heatingSource);
     }
 
-    public void addNewRoom(String name, int sPin, int rPin){
+    public void addNewRoom(String name, int sPin, int rPin) {
         Room room = new Room(name, sPin, rPin);
         house.heatedPlaces.add(room);
         new DataBase().addHeatedPlace(room);
     }
 
-    public void addNewBoiler(String name, int sPin, int rPin){
+    public void addNewBoiler(String name, int sPin, int rPin) {
         Boiler boiler = new Boiler(name, sPin, rPin);
         house.heatedPlaces.add(boiler);
         new DataBase().addHeatedPlace(boiler);
     }
 
-    public void deleteHeatedPlace(String name){
+    public void deleteHeatedPlace(String name) {
         HeatedObj ho = house.getHeatedPlaceByName(name);
-        if(ho != null) {
+        if (ho != null) {
             house.heatedPlaces.remove(ho);
             new DataBase().removeHeatedPlace(ho);
         }
     }
 
-    public void addUser(int id, String pass){
+    public void addUser(int id, String pass) {
         RegularUser user = new RegularUser(id, pass, house);
         house.usersList.add(user);
         new DataBase().addUser(user);
     }
 
-    public void removeUser(int id){
-        for(int i=0;i<house.usersList.size();i++)
-            if(house.usersList.get(i).id == id){
+    public void removeUser(int id) {
+        for (int i = 0; i < house.usersList.size(); i++)
+            if (house.usersList.get(i).id == id) {
                 new DataBase().removeUser(house.usersList.get(i).getId());
                 house.usersList.remove(i);
                 break;
             }
     }
 
-    public void switchOnAutomation(){
+    public void switchOnAutomation() {
         house.processingBox = new ProcessingBox(house);
         house.processingBox.running = true;
-        if(!house.processingBox.isAlive())
+        if (!house.processingBox.isAlive())
             house.processingBox.start();
     }
 
-    public void switchOffAutomation(){
+    public void switchOffAutomation() {
         house.processingBox.running = false;
     }
 
-    public void genPdfReport(String placeName){
+    public void genPdfReport(String placeName) {
         Report rep = (new ReportFactory()).getReport("PDF");
         rep.write(placeName);
     }
 
-    public void genCsvReport(String placeName){
+    public void genCsvReport(String placeName) {
         Report rep = (new ReportFactory()).getReport("CSV");
         rep.write(placeName);
     }
