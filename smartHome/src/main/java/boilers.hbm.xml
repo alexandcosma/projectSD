@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.alex.smartHome.src.model.Boiler" table="boilers">
+        <meta attribute="class-description">
+            This class contains the employee detail.
+        </meta>
+        <id name="name" column="name" type="string">
+        </id>
+        <property name="reqTemp" column="reqTemp" type="float" />
+        <property name="sensorPin" column="sensor" type="integer" />
+        <property name="relayPin" column="relay" type="integer" />
+    </class>
+</hibernate-mapping>

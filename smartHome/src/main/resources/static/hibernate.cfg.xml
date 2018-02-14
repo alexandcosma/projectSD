@@ -22,9 +22,12 @@
 			root
 		</property>
 
+		<mapping resource="boilers.hbm.xml" />
+		<mapping resource="heating_source.hbm.xml" />
+		<mapping resource="relays.hbm.xml" />
+		<mapping resource="rooms.hbm.xml" />
+		<mapping resource="sensors.hbm.xml" />
 		<mapping resource="users.hbm.xml" />
-		<mapping resource="flights.hbm.xml" />
-		<mapping resource="cities.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -11,6 +11,9 @@ public class Sensor  {
 		temp=0;
 	}
 
+	public Sensor() {
+	}
+
 	public boolean equals(Object rl){
 		return ((Sensor)rl).pinNr == this.pinNr;
 	}
@@ -29,8 +32,12 @@ public class Sensor  {
 		return temp;
 	}
 	
-	public int getPin()
+	public int getPinNr()
 	{
 		return pinNr;
+	}
+
+	public void setPinNr(int nr){
+		this.pinNr = nr;
 	}
 }

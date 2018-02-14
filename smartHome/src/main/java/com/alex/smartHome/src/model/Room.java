@@ -18,6 +18,9 @@ public class Room extends HeatedObj {
 		rl = new Relay(heatedObj.getRelayPin());
 	}
 
+	public Room() {
+	}
+
 	public boolean setReqTemp(float tmp) {
 		if(tmp>35)
 			return false;

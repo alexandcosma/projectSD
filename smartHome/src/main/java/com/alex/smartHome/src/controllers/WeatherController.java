@@ -1,4 +1,4 @@
-package com.alex.smartHome.src.controller;
+package com.alex.smartHome.src.controllers;
 
 /**
  * Created by cosma on 30.05.2017.

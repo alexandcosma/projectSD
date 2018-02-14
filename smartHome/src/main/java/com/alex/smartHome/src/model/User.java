@@ -24,6 +24,9 @@ public class User {
         this.house = null;
     }
 
+    public User() {
+    }
+
     public boolean equals(Object usr) {
         return ((User) usr).id == this.id && ((User) usr).password.equals(this.password);
     }
@@ -32,8 +35,16 @@ public class User {
         return id;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+
     public String getPassword() {
         return new String(password);
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     public void setHouse(House house) {

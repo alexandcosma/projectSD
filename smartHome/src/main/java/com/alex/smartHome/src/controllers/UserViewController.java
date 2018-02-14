@@ -1,4 +1,4 @@
-package com.alex.smartHome.src.controller;
+package com.alex.smartHome.src.controllers;
 
 import model.RegularUser;
 

@@ -14,6 +14,8 @@ public abstract class HeatedObj {
 	protected float reqTemp;
 	protected String name;
 	protected Sensor sensor;
+	protected int sensorPin;
+	protected int relayPin;
 	protected Relay rl;
 	
 	public HeatedObj(String n, int sensPinNumber,int rlPinNumber)
@@ -23,6 +25,8 @@ public abstract class HeatedObj {
 		reqTemp=0;
 		sensor=new Sensor(sensPinNumber);
 		rl=new Relay(rlPinNumber);
+		sensorPin = sensPinNumber;
+		relayPin = rlPinNumber;
 	}
 
 	public HeatedObj(String n, int sensPinNumber,int rlPinNumber, float reqTemp)
@@ -32,6 +36,8 @@ public abstract class HeatedObj {
 		this.reqTemp=reqTemp;
 		sensor=new Sensor(sensPinNumber);
 		rl=new Relay(rlPinNumber);
+		sensorPin = sensPinNumber;
+		relayPin = rlPinNumber;
 	}
 	public HeatedObj(){};
 
@@ -40,11 +46,11 @@ public abstract class HeatedObj {
 	}
 
 	public int getSensorPin(){
-		return sensor.getPin();
+		return sensor.getPinNr();
 	}
 
 	public int getRelayPin(){
-		return rl.getPin();
+		return rl.getPinNr();
 	}
 	
 	public float getActTemp()
@@ -105,7 +111,19 @@ public abstract class HeatedObj {
 		sensor.setTemp(t);
 		updateActTemp();
 	}
-	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSensorPin(int sensorPin) {
+		this.sensorPin = sensorPin;
+	}
+
+	public void setRelayPin(int relayPin) {
+		this.relayPin = relayPin;
+	}
+
 	public abstract boolean setReqTemp(float tmp);
 
 }

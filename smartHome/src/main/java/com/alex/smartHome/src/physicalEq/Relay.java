@@ -11,6 +11,9 @@ public class Relay {
 		state=false;
 	}
 
+	public Relay() {
+	}
+
 	public boolean equals(Object rl){
 		return ((Relay)rl).pinNr == this.pinNr;
 	}
@@ -26,9 +29,13 @@ public class Relay {
 		return state;
 	}
 	
-	public int getPin()
+	public int getPinNr()
 	{
 		return pinNr;
+	}
+
+	public void setPinNr(int pin){
+		this.pinNr = pin;
 	}
 
 }

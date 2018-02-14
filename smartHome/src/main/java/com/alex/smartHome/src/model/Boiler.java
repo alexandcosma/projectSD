@@ -18,6 +18,9 @@ public class Boiler extends HeatedObj {
 		rl = new Relay(heatedObj.getRelayPin());
 	}
 
+	public Boiler() {
+	}
+
 	public boolean setReqTemp(float tmp) {
 		if(tmp>85)
 			return false;
