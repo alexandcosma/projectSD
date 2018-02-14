@@ -1,6 +1,7 @@
 package com.alex.smartHome.src.model.reports;
 
-import data.Logger;
+
+import com.alex.smartHome.src.data.Logger;
 
 import java.io.FileWriter;
 

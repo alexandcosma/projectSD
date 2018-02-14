@@ -31,7 +31,7 @@ public class HeatingObj {
 	}
 
 	public int getRelPin(){
-		return rel.getPin();
+		return rel.getPinNr();
 	}
 	
 	public boolean tunrOn()

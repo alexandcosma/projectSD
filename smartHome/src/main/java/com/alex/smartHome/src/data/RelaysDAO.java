@@ -3,6 +3,8 @@ package com.alex.smartHome.src.data;
 import com.alex.smartHome.src.physicalEq.Relay;
 import org.hibernate.*;
 
+import java.util.List;
+
 /**
  * Created by cosma on 16.05.2017.
  */
@@ -17,10 +19,12 @@ public class RelaysDAO {
         Relay relay = null;
         Session session = factory.openSession();
         Transaction tx = null;
+        List<Relay> relayList;
         try {
-            Query query = session.createQuery("FROM relays WHERE pinId = :pinId");
+            Query query = session.createQuery("FROM Relay WHERE pinId = :pinId");
             query.setParameter("pinId", pin);
-            relay = (Relay) query.list().get(0);
+            relayList = query.list();
+            relay = relayList.size() > 0 ? relayList.get(0) : null;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -33,9 +37,11 @@ public class RelaysDAO {
         Relay relay = null;
         Session session = factory.openSession();
         Transaction tx = null;
+        List<Relay> relayList;
         try {
-            Query query = session.createQuery("FROM relays WHERE protection = 1");
-            relay = (Relay) query.list().get(0);
+            Query query = session.createQuery("FROM Relay WHERE protection = 1");
+            relayList = query.list();
+            relay = relayList.size() > 0 ? relayList.get(0) : null;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -49,7 +55,7 @@ public class RelaysDAO {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("INSERT into relays VALUES (:pin , :protection)");
+            Query query = session.createQuery("INSERT into Relay VALUES (:pin , :protection)");
             query.setParameter("pin", relay);
             query.setParameter("protection", protection ? 1 : 0);
             query.executeUpdate();
@@ -84,7 +90,7 @@ public class RelaysDAO {
 
         try {
             tx = session.beginTransaction();
-            Query query = session.createQuery("DELETE FROM relays WHERE protection = 1");
+            Query query = session.createQuery("DELETE FROM Relay WHERE protection = 1");
             query.executeUpdate();
             tx.commit();
         } catch (HibernateException e) {

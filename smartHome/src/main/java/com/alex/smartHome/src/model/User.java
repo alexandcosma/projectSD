@@ -57,7 +57,7 @@ public class User {
 
     public void setTemperatureTo(String placeName, float newTemperature) {
         HeatedObj ho = house.getHeatedPlaceByName(placeName);
-        house.updateUsers();
+//        house.updateUsers();
         if (ho != null) {
             ho.setReqTemp(newTemperature);
             new DataBase().modifyTempToHeatedPlace(placeName, newTemperature);

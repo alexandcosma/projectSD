@@ -1,6 +1,7 @@
 package com.alex.smartHome.src.controllers;
 
-import model.RegularUser;
+
+import com.alex.smartHome.src.model.RegularUser;
 
 /**
  * Created by cosma on 10.05.2017.

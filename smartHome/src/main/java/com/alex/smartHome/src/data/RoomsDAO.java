@@ -23,7 +23,7 @@ public class RoomsDAO {
         List<HeatedObj> heatedObjects = null;
         HeatedObj heatedObj = null;
         try {
-            Query query = session.createQuery("FROM rooms WHERE name = :name");
+            Query query = session.createQuery("FROM Room WHERE name = :name");
             query.setParameter("name", name);
             heatedObjects = query.list();
 
@@ -42,7 +42,7 @@ public class RoomsDAO {
         Session session = factory.openSession();
 
         try {
-            Query query = session.createQuery("FROM rooms");
+            Query query = session.createQuery("FROM Room");
             heatedObjects = query.list();
 
             for (int i = 0; i < heatedObjects.size(); i++) {

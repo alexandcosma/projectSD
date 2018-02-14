@@ -34,4 +34,8 @@ public class ClientHouse implements Serializable {
         for(int i=0;i<house.heatedPlaces.size();i++)
             status.add(house.heatedPlaces.get(i).getStatus());
     }
+
+    public String toString(){
+        return places.toString() + actTemperatures.toString() + reqTemperatures.toString() + status.toString();
+    }
 }

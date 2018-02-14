@@ -23,7 +23,7 @@ public class BoilersDAO {
         List<HeatedObj> heatedObjects = null;
         HeatedObj heatedObj = null;
         try {
-            Query query = session.createQuery("FROM boilers WHERE name = :name");
+            Query query = session.createQuery("FROM Boiler WHERE name = :name");
             query.setParameter("name", name);
             heatedObjects = query.list();
 
@@ -42,7 +42,7 @@ public class BoilersDAO {
         Session session = factory.openSession();
 
         try {
-            Query query = session.createQuery("FROM boilers");
+            Query query = session.createQuery("FROM Boiler");
             heatedObjects = query.list();
 
             for (int i = 0; i < heatedObjects.size(); i++) {

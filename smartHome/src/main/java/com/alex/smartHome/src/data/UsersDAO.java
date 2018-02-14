@@ -3,6 +3,8 @@ package com.alex.smartHome.src.data;
 import com.alex.smartHome.src.model.User;
 import org.hibernate.*;
 
+import java.util.List;
+
 /**
  * Created by cosma on 16.05.2017.
  */
@@ -16,10 +18,12 @@ public class UsersDAO {
     public User find(int id) {
         Session session = factory.openSession();
         User user = null;
+        List<User> users;
         try {
-            Query query = session.createQuery("FROM users WHERE id = :id");
+            Query query = session.createQuery("FROM User WHERE id = :id");
             query.setParameter("id", id);
-            user = (User) query.list().get(0);
+            users = query.list();
+            user = users.size() > 0 ? users.get(0) :null;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -62,7 +66,7 @@ public class UsersDAO {
     public boolean adminCheck() {
         Session session = factory.openSession();
         try {
-            Query query = session.createQuery("FROM users WHERE admin = 1");
+            Query query = session.createQuery("FROM User WHERE admin = 1");
             return query.list().size() > 0;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());

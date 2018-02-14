@@ -3,6 +3,8 @@ package com.alex.smartHome.src.data;
 import com.alex.smartHome.src.physicalEq.Sensor;
 import org.hibernate.*;
 
+import java.util.List;
+
 /**
  * Created by cosma on 16.05.2017.
  */
@@ -16,10 +18,12 @@ public class SensorsDAO {
     public Sensor find(int pin) {
         Session session = factory.openSession();
         Sensor sensor = null;
+        List<Sensor> sensors;
         try {
-            Query query = session.createQuery("FROM sensors WHERE pinId = :pinId");
+            Query query = session.createQuery("FROM Sensor WHERE pinId = :pinId");
             query.setParameter("pinId", pin);
-            sensor = (Sensor) query.list().get(0);
+            sensors = query.list();
+            sensor = sensors.size() > 0 ? sensors.get(0) : null;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {

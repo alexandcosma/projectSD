@@ -1,6 +1,6 @@
 package com.alex.smartHome.src.model.reports;
 
-import data.Logger;
+import com.alex.smartHome.src.data.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;

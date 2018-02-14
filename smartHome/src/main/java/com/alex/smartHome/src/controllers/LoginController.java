@@ -4,6 +4,7 @@ import com.alex.smartHome.src.communication.Protocol;
 import com.alex.smartHome.src.data.*;
 import com.alex.smartHome.src.model.*;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class LoginController {
     private boolean isData;
 
     public LoginController(){
-        checkData();
+        //checkData();
     }
 
     private void checkData(){

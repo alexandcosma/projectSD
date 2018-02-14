@@ -3,6 +3,8 @@ package com.alex.smartHome.src.data;
 import com.alex.smartHome.src.model.HeatingObj;
 import org.hibernate.*;
 
+import java.util.List;
+
 /**
  * Created by cosma on 16.05.2017.
  */
@@ -17,9 +19,11 @@ public class HeatingSourceDAO {
         HeatingObj heatingObj = null;
         Session session = factory.openSession();
         Transaction tx = null;
+        List<HeatingObj> heatingObjs;
         try {
-            Query query = session.createQuery("FROM heating_source");
-            heatingObj = (HeatingObj) query.list().get(0);
+            Query query = session.createQuery("FROM HeatingObj");
+            heatingObjs = query.list();
+            heatingObj = heatingObjs.size() > 0 ? heatingObjs.get(0):null;
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         } finally {
